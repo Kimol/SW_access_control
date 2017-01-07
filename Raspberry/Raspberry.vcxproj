@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="radio.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="data_set.h" />
+    <ClInclude Include="radio.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6B687ACA-8268-42E7-AB1D-01F5EE14B8AA}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Raspberry.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Raspberry.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <NMakeOutput>
+    </NMakeOutput>
+    <NMakePreprocessorDefinitions>
+    </NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>plink -2 -i "$(SSHKeyFile)" $(RaspberryUser)@$(RaspberryAddress) "test -d $(ProjectName)  || mkdir $(ProjectName)"
+if exist "$(ProjectDir)\*.h" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)*.h" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+)
+
+if exist "$(ProjectDir)\*.cpp" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)*.cpp" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+)
+
+if exist "$(ProjectDir)\Makefile" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)Makefile" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+) else (
+	exit -1
+)
+plink -2 -i "$(SSHKeyFile)" $(RaspberryUser)@$(RaspberryAddress) "cd $(ProjectName); make $(Configuration)"
+</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>plink -2 -i "$(SSHKeyFile)" $(RaspberryUser)@$(RaspberryAddress) "test -d $(ProjectName)  || mkdir $(ProjectName)"
+if exist "$(ProjectDir)\*.h" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)*.h" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+)
+
+if exist "$(ProjectDir)\*.cpp" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)*.cpp" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+)
+
+if exist "$(ProjectDir)\Makefile" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)Makefile" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+) else (
+	exit -1
+)
+plink -2 -i "$(SSHKeyFile)" $(RaspberryUser)@$(RaspberryAddress) "cd $(ProjectName); make clean $(Configuration)"</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>plink -2 -i "$(SSHKeyFile)" $(RaspberryUser)@$(RaspberryAddress) "cd $(ProjectName); make clean"</NMakeCleanCommandLine>
+    <IncludePath>$(ProjectDir)lib\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <NMakeOutput>
+    </NMakeOutput>
+    <NMakePreprocessorDefinitions>
+    </NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>plink -2 -i "$(SSHKeyFile)" $(RaspberryUser)@$(RaspberryAddress) "test -d $(ProjectName)  || mkdir $(ProjectName)"
+if exist "$(ProjectDir)\*.h" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)*.h" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+)
+
+if exist "$(ProjectDir)\*.cpp" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)*.cpp" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+)
+
+if exist "$(ProjectDir)\Makefile" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)Makefile" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+) else (
+	exit -1
+)
+plink -2 -i "$(SSHKeyFile)" $(RaspberryUser)@$(RaspberryAddress) "cd $(ProjectName); make $(Configuration)"
+</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>plink -2 -i "$(SSHKeyFile)" $(RaspberryUser)@$(RaspberryAddress) "test -d $(ProjectName)  || mkdir $(ProjectName)"
+if exist "$(ProjectDir)\*.h" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)*.h" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+)
+
+if exist "$(ProjectDir)\*.cpp" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)*.cpp" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+)
+
+if exist "$(ProjectDir)\Makefile" (
+	pscp -2 -i "$(SSHKeyFile)" "$(ProjectDir)Makefile" $(RaspberryUser)@$(RaspberryAddress):$(ProjectName)
+) else (
+	exit -1
+)
+plink -2 -i "$(SSHKeyFile)" $(RaspberryUser)@$(RaspberryAddress) "cd $(ProjectName); make clean $(Configuration)"</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>plink -2 -i "$(SSHKeyFile)" $(RaspberryUser)@$(RaspberryAddress) "cd $(ProjectName); make clean"</NMakeCleanCommandLine>
+    <IncludePath>$(ProjectDir)lib\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
