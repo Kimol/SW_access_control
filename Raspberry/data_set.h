@@ -2,5 +2,6 @@
 
 struct DataSet
 {
-	int id;
+	char id[4];
+    bool approval;
 };

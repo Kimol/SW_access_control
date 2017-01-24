@@ -12,7 +12,6 @@ class Radio
 public:
 	Radio(std::string raspberryName,
 		std::string adruinoName,
-		size_t arduinoNumber,
 		const int radioCEPin,
 		const int radioCSPin,
 		size_t radioChannel = 100,
@@ -23,10 +22,8 @@ public:
 	bool isAlive() const;
 private:
 	void run();
-	void notifyAll(DataSet message);
-
 	std::string raspberryName;
-	std::vector<std::string> arduinosNames;
+	std::string arduinosName;
 	const int radioCEPin;
 	const int radioCSPin;
 	size_t radioChannel = 100;
